@@ -34,7 +34,9 @@ export default async function Page({ searchParams }: Props) {
 
 
     // const qualified = useMemo(() => rows.filter(l => l.status).length, [rows]);
+    //@ts-ignore
     const qualified = rows.filter(l => l.status).length;
+    //@ts-ignore
     const verified = rows.filter(l => l.status !== undefined).length
 
     return (

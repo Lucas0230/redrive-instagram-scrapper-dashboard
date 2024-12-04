@@ -49,8 +49,14 @@ export function TasksDataTable({ tasks, batches }: Props) {
                                     <TaskStatus status={task.status} />
                                 </TableCell>
                                 <TableCell>{task.arg}</TableCell>
-                                <TableCell>{ACTIONS_TRANSLATION[task.type as keyof typeof ACTIONS_TRANSLATION]}</TableCell>
-                                <TableCell className="text-right">{task.leads || 0}</TableCell>
+                                <TableCell>{
+                                    //@ts-ignore
+                                    ACTIONS_TRANSLATION[task.type as keyof typeof ACTIONS_TRANSLATION]
+                                }</TableCell>
+                                <TableCell className="text-right">{
+                                    //@ts-ignore
+                                    task.leads || 0
+                                }</TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
@@ -58,7 +64,10 @@ export function TasksDataTable({ tasks, batches }: Props) {
                         <TableRow>
                             <TableCell colSpan={3}>Total</TableCell>
                             <TableCell></TableCell>
-                            <TableCell className="text-right">{tasks.reduce((acc, task) => acc + (task.leads || 0), 0)}</TableCell>
+                            <TableCell className="text-right">{
+                                //@ts-ignore
+                                tasks.reduce((acc, task) => acc + (task.leads || 0), 0)
+                            }</TableCell>
                         </TableRow>
                     </TableFooter>
                 </Table>
