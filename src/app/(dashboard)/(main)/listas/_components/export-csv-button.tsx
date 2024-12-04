@@ -1,12 +1,12 @@
 'use client'
 
 import { Button } from "@/components/ui/button";
-import { Lead } from "../types";
 import { useState } from "react";
 import { api } from "@/lib/api";
 import { useSearchParams } from "next/navigation";
 import { generateLeadsCSVByBatch } from "../actions";
 import { DownloadIcon } from "@radix-ui/react-icons";
+import { Lead } from "../../leads/types";
 
 interface Props {
     leads: Lead[]
