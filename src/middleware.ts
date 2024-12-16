@@ -4,7 +4,7 @@ import { decode } from "next-auth/jwt";
 
 export async function middleware(request: NextRequest) {
 
-    const token = request.cookies.get('next-auth.session-token');
+    const token = request.cookies.get(process.env.NODE_ENV == 'production' ? '__Secure-next-auth.session-token' : 'next-auth.session-token');
     const pathname = request.nextUrl.pathname;
 
     console.log(`Auth Middleware =>`)
