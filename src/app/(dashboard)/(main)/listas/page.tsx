@@ -16,9 +16,8 @@ type Props = {
 
 export default async function Page({ searchParams }: Props) {
 
-
     const batches = await getRedriveScrapperBatches();
-    const tasks = await getRedriveQueueTasks({ batch: searchParams.batch })
+    const tasks = await getRedriveQueueTasks({ batch: searchParams.batch || batches[0] })
 
     return (
         <div className="flex flex-col w-full h-auto px-8 py-8">

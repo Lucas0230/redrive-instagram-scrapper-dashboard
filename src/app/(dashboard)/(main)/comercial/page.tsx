@@ -13,6 +13,9 @@ import { User2Icon } from "lucide-react"
 import { BatchesFilter } from "../../_components/batches-filter"
 import { columns } from "./_components/columns"
 import { useMemo, useState } from "react"
+import { LeadsTableAnalyticsContext, LeadsTableAnalyticsProvider } from "@/contexts/leads-table-analytics"
+import { TableCards } from "./_components/table-cards"
+
 
 type Props = {
     searchParams: { batch: string }
@@ -33,12 +36,6 @@ export default async function Page({ searchParams }: Props) {
     }))
 
 
-    // const qualified = useMemo(() => rows.filter(l => l.status).length, [rows]);
-    //@ts-ignore
-    const qualified = rows.filter(l => l.status).length;
-    //@ts-ignore
-    const verified = rows.filter(l => l.status !== undefined).length
-
     return (
         <>
             <div className="hidden h-fit flex-1 flex-col p-8 md:flex">
@@ -55,63 +52,15 @@ export default async function Page({ searchParams }: Props) {
                     <BatchesFilter batches={batches} />
                 </div>
 
-                <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 mt-4">
-                    <Card className="!shadow-sm">
-                        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-1.5">
-                            <CardTitle className="text-sm font-medium">
-                                Total de Leads
-                            </CardTitle>
-                            <User2Icon className="w-4 h-4 text-muted-foreground" />
-                        </CardHeader>
-                        <CardContent>
-                            <div className="text-2xl font-bold mt-1">{leads.length}</div>
-                        </CardContent>
-                    </Card>
-                    <Card className="!shadow-sm">
-                        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-1.5">
-                            <CardTitle className="text-sm font-medium">
-                                Qualificados
-                            </CardTitle>
-                            <User2Icon className="w-4 h-4 text-muted-foreground" />
-                        </CardHeader>
-                        <CardContent>
-                            <div className="text-2xl font-bold mt-1">{qualified}</div>
-                        </CardContent>
-                    </Card>
-                    <Card className="!shadow-sm">
-                        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-1.5">
-                            <CardTitle className="text-sm font-medium">
-                                % de Qualificados
-                            </CardTitle>
-                            <User2Icon className="w-4 h-4 text-muted-foreground" />
-                        </CardHeader>
-                        <CardContent>
-                            <div className="text-2xl font-bold mt-1">
-                                {(qualified / leads.length).toFixed(2)}
-                            </div>
-                        </CardContent>
-                    </Card>
-                    <Card className="!shadow-sm">
-                        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-1.5">
-                            <CardTitle className="text-sm font-medium">
-                                % de Progresso
-                            </CardTitle>
-                            <User2Icon className="w-4 h-4 text-muted-foreground" />
-                        </CardHeader>
-                        <CardContent>
-                            <div className="text-2xl font-bold mt-1">
-                                {(verified / leads.length).toFixed(2)}
-                            </div>
-                        </CardContent>
-                    </Card>
-                </div>
-
                 <div className="mt-6">
-                    <DataTable
-                        batches={batches}
-                        data={rows}
-                        columns={columns}
-                    />
+                    <LeadsTableAnalyticsProvider>
+                        {/* <TableCards /> */}
+                        <DataTable
+                            batches={batches}
+                            data={rows}
+                            columns={columns}
+                        />
+                    </LeadsTableAnalyticsProvider>
                 </div>
             </div>
         </>

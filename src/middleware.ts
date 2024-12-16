@@ -23,8 +23,10 @@ export async function middleware(request: NextRequest) {
         return true;
     })();
 
-    if (pathname == '/' && isValidAuth) return NextResponse.redirect(new URL(getUrl('/listas')));
+    console.log(`Auth Middleware =>`)
+    console.log({ isValidAuth })
 
+    if (pathname == '/' && isValidAuth) return NextResponse.redirect(new URL(getUrl('/listas')));
     if (pathname != '/' && !isValidAuth) return NextResponse.redirect(new URL(getUrl('/')));
 
 }

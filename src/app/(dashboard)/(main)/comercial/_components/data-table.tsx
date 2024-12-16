@@ -26,6 +26,8 @@ import {
 } from "@/components/ui/table"
 
 import { DataTablePagination } from "./data-table-pagination"
+import { TableCards } from "./table-cards"
+import { UseLeadsTableAnalytics } from "@/contexts/leads-table-analytics"
 
 
 interface DataTableProps<TData, TValue> {
@@ -68,6 +70,22 @@ export function DataTable<TData, TValue>({
     getFacetedRowModel: getFacetedRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues(),
   })
+
+
+  const { setAnalytics } = UseLeadsTableAnalytics()
+
+  React.useEffect(() => {
+
+    const rows = table.getRowModel().rows;
+
+    setAnalytics({
+      leads: rows.length,
+      qualified: rows.filter(l => l.status).length,
+      verified: rows.filter(l => l.status !== undefined).length
+    })
+
+  }, [])
+
 
   return (
     <div className="space-y-4">

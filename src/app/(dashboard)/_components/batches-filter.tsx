@@ -34,7 +34,11 @@ export function BatchesFilter({ batches }: Props) {
     const params = useSearchParams();
     const batch = params.get('batch');
 
-    if (!batch) router.push(`?batch=${batches[0]}`);
+    if (!batch) {
+        setTimeout(() => {
+            router.push(`?batch=${batches[0]}`);
+        }, 300);
+    }
 
     return (
         <div className="">

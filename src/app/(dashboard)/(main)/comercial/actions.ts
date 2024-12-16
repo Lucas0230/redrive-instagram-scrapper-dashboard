@@ -3,7 +3,6 @@
 import { api } from "@/lib/api";
 
 
-
 export async function getSalesTeamLeadsBatches() {
     const { data } = await api.get(`/scraping-tasks-batches?isAssignedToSalesTeam=true`);
     return data
