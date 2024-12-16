@@ -80,7 +80,9 @@ export function DataTable<TData, TValue>({
 
     setAnalytics({
       leads: rows.length,
+      //@ts-ignore
       qualified: rows.filter(l => l.status).length,
+      //@ts-ignore
       verified: rows.filter(l => l.status !== undefined).length
     })
 

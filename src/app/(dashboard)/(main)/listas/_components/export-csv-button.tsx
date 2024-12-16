@@ -6,14 +6,13 @@ import { api } from "@/lib/api";
 import { useSearchParams } from "next/navigation";
 import { generateLeadsCSVByBatch } from "../actions";
 import { DownloadIcon } from "@radix-ui/react-icons";
-import { Lead } from "../../leads/types";
+import { RedriveLead } from "@/types/redrive-lead";
 
 interface Props {
-    leads: Lead[]
+    leads: RedriveLead[]
 }
 
 export function ExportCSVButton() {
-
 
     const params = useSearchParams();
     const batch = params.get('batch');
