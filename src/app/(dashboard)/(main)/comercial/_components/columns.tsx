@@ -11,6 +11,7 @@ import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrig
 import { AngryIcon, SmileIcon } from "lucide-react"
 import { updateLeadById } from "../actions"
 import React from "react"
+import { InstagramLogoIcon } from "@radix-ui/react-icons"
 
 
 export const columns: ColumnDef<Task>[] = [
@@ -90,7 +91,7 @@ export const columns: ColumnDef<Task>[] = [
     cell: ({ row }) => {
       return (
         <span className="max-w-[500px] truncate font-medium">
-          {row.getValue("phone") ? formatToPhone(row.getValue("phone")) : row.getValue("phone")}
+          {row.getValue("phone") ? formatToPhone(row.getValue("phone")) : '--'}
         </span>
       )
     },
@@ -103,7 +104,7 @@ export const columns: ColumnDef<Task>[] = [
     cell: ({ row }) => {
       return (
         <span className="max-w-[500px] truncate font-medium">
-          {row.getValue("email")}
+          {row.getValue("email") || '--'}
         </span>
       )
     },
@@ -117,44 +118,45 @@ export const columns: ColumnDef<Task>[] = [
       return (
         <Link
           target="_blank"
-          className="max-w-[500px] truncate font-medium hover:text-blue-700 transition-all duration-200"
+          className="max-w-[500px] truncate font-medium hover:text-pink-700 transition-all duration-200 flex flex-row gap-1.5 items-center"
           href={`https://instagram.com/${row.getValue("instagram")}`}
         >
+          <InstagramLogoIcon className="mt-0.5" />
           {row.getValue("instagram")}
         </Link>
       )
     },
   },
-  {
-    accessorKey: "arg",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Post" />
-    ),
-    cell: ({ row }) => {
-      return (
-        <Link
-          target="_blank"
-          className="max-w-[500px] truncate font-medium hover:text-blue-700 transition-all duration-200"
-          href={`https://instagram.com/p/${row.getValue("arg")}`}
-        >
-          {row.getValue("arg")}
-        </Link>
-      )
-    },
-  },
-  {
-    accessorKey: "createdAt",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Criado em" />
-    ),
-    cell: ({ row }) => {
-      return (
-        <span className="max-w-[500px] truncate font-medium">
-          {new Date(row.getValue("createdAt")).toLocaleDateString('pt-br')}
-        </span>
-      )
-    },
-  },
+  // {
+  //   accessorKey: "arg",
+  //   header: ({ column }) => (
+  //     <DataTableColumnHeader column={column} title="Post" />
+  //   ),
+  //   cell: ({ row }) => {
+  //     return (
+  //       <Link
+  //         target="_blank"
+  //         className="max-w-[500px] truncate font-medium hover:text-blue-700 transition-all duration-200"
+  //         href={`https://instagram.com/p/${row.getValue("arg")}`}
+  //       >
+  //         {row.getValue("arg")}
+  //       </Link>
+  //     )
+  //   },
+  // },
+  // {
+  //   accessorKey: "createdAt",
+  //   header: ({ column }) => (
+  //     <DataTableColumnHeader column={column} title="Criado em" />
+  //   ),
+  //   cell: ({ row }) => {
+  //     return (
+  //       <span className="max-w-[500px] truncate font-medium">
+  //         {new Date(row.getValue("createdAt")).toLocaleDateString('pt-br')}
+  //       </span>
+  //     )
+  //   },
+  // },
   {
     id: "actions",
     cell: ({ row }) => <DataTableRowActions row={row} />,

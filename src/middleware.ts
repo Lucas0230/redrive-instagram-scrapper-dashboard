@@ -7,17 +7,12 @@ export async function middleware(request: NextRequest) {
     const token = request.cookies.get(process.env.NODE_ENV == 'production' ? '__Secure-next-auth.session-token' : 'next-auth.session-token');
     const pathname = request.nextUrl.pathname;
 
-    console.log(`Auth Middleware =>`)
-
     const isValidAuth = await (async () => {
 
-        console.log(token)
         const decoded = await decode({
             token: token?.value,
             secret: process.env.NEXTAUTH_SECRET as string,
         });
-
-        console.log(decoded)
 
         if (!decoded) return false;
 
@@ -27,7 +22,6 @@ export async function middleware(request: NextRequest) {
         if (iat && iat > now) return false;
         return true;
     })();
-    console.log({ isValidAuth })
 
     if (pathname == '/' && isValidAuth) return NextResponse.redirect(new URL(getUrl('/listas')));
     if (pathname != '/' && !isValidAuth) return NextResponse.redirect(new URL(getUrl('/')));

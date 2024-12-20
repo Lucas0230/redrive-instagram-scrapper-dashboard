@@ -57,6 +57,7 @@ export function DataTable<TData, TValue>({
       columnVisibility,
       rowSelection,
       columnFilters,
+      pagination: { pageSize: 1000, pageIndex: 0 }
     },
     enableRowSelection: true,
     onRowSelectionChange: setRowSelection,
@@ -69,24 +70,8 @@ export function DataTable<TData, TValue>({
     getSortedRowModel: getSortedRowModel(),
     getFacetedRowModel: getFacetedRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues(),
+
   })
-
-
-  const { setAnalytics } = UseLeadsTableAnalytics()
-
-  React.useEffect(() => {
-
-    const rows = table.getRowModel().rows;
-
-    setAnalytics({
-      leads: rows.length,
-      //@ts-ignore
-      qualified: rows.filter(l => l.status).length,
-      //@ts-ignore
-      verified: rows.filter(l => l.status !== undefined).length
-    })
-
-  }, [])
 
 
   return (
@@ -141,7 +126,7 @@ export function DataTable<TData, TValue>({
           </TableBody>
         </Table>
       </div>
-      <DataTablePagination table={table} />
+      {/* <DataTablePagination table={table} /> */}
     </div>
   )
 }
